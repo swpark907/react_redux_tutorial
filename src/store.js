@@ -1,14 +1,22 @@
-import { createStore } from "redux";
 
-export default createStore(function(state, action){
-<<<<<<< HEAD
-  console.log('reduer activated')
-  if(state === undefined){
-    return {
-      size: 0,
-    }
+
+export const increaseCount = count => ({type: 'INCREASE', count});
+
+const initialState = {
+  count: 0,
+};
+
+const counter = (state = initialState, action) => {
+  switch(action.type) {
+    case 'INCREASE':
+      return {
+        ...state,
+        count: action.count
+      }
+
+      default:
+        return state;
   }
-=======
->>>>>>> 125a5e8c856432e40f07cdbd0c09eddb99a93593
-  return state;
-})
+}
+
+export default counter;
