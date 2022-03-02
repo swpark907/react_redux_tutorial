@@ -1,9 +1,11 @@
 
 
-export const increaseCount = count => ({type: 'INCREASE', count});
+export const increaseCount = () => ({type: 'INCREASE'});
+export const setDiff = diff => ({type: 'SET_DIFF', diff});
 
 const initialState = {
-  count: 0,
+  number: 0,
+  diff: 0,
 };
 
 const counter = (state = initialState, action) => {
@@ -11,7 +13,13 @@ const counter = (state = initialState, action) => {
     case 'INCREASE':
       return {
         ...state,
-        count: action.count
+        number: state.number + state.diff
+      }
+    
+    case 'SET_DIFF':
+      return{
+        ...state,
+        diff: action.diff
       }
 
       default:
