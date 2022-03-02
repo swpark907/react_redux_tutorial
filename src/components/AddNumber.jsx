@@ -1,22 +1,32 @@
 import React, { useState } from 'react';
-import store from '../store';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import store, { increaseCount, setDiff } from '../store';
 
 const AddNumber = (props) => {
 
-  const [size, setSize] = useState(0);
+  const dispatch = useDispatch();
+  const {number, diff} = useSelector(state => ({
+    number: state.counter.number,
+    diff: state.counter.diff
+  }));
 
-  function sizeChange (e) {
-    setSize(Number(e.target.value));
+  console.log(number, diff);
+
+  const onIncrease = () => {
+    dispatch(increaseCount());
+  }
+
+  const onSetDiff = e => {
+    console.log(e.target.value);
+    dispatch(setDiff(Number(e.target.value)));
   }
 
   return (
     <div>
       <h1>Add Number</h1>
-      <input type="button" value="+" onClick={function(){
-        store.dispatch({type: 'INCREMENT', size: size})
-        console.log(store.getState());
-        }}/>
-      <input type="text" defaultValue="0" onChange={sizeChange}/>
+      <input type="button" value="+" onClick={onIncrease}/>
+      <input type="text" value={diff} onChange={onSetDiff} />
     </div>
   );
 };
